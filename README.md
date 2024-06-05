@@ -91,5 +91,55 @@ run `poetry install` and then `poetry run start` and check that everything is ru
 url `http://0.0.0.0:9090/health` you spouse to see:
 > {"status":"ok"}
 
+# Forth step - Database
+
+Let's add local postgres DB to our project by creating `docker-compose.yml` file with the following content:
+
+```yaml
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5444:5432
+    environment:
+      - POSTGRES_PASSWORD=S3cret
+      - POSTGRES_USER=tikal_user
+      - POSTGRES_DB=bff_workshop
+```
+
+and then we can lift it up running `docker-compose up -d`
+
+### Yay we have postgres running... 🏃
+
+## Connecting to our DB
+
+Create `.env` file on the root directory and add the following line to it:
+
+```.dotenv
+DATABASE_URL="postgresql://tikal_user:S3cret@localhost:5444/bff_workshop"
+```
+
+Now we go to our `bff_workshop/main.py` and add the following at the top of the file (after the imports)
+
+```python
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+sys.path.append(BASE_DIR)
+```
+
+Now we need to add the following imports:
+
+```python
+import os
+import sys
+from dotenv import load_dotenv
+from fastapi_sqlalchemy import DBSessionMiddleware
+```
+Add this after the `app = FastApi()`
+```python
+app.add_middleware(DBSessionMiddleware, db_url=os.environ["DATABASE_URL"])
+```
 
 
