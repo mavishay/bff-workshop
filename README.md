@@ -141,5 +141,20 @@ Add this after the `app = FastApi()`
 ```python
 app.add_middleware(DBSessionMiddleware, db_url=os.environ["DATABASE_URL"])
 ```
+Now will run in the CLI `alembic init alembic` this will create `alembic` folder and `alembic.ini` file.
 
+In the `alembic.ini` file we change `sqlalchemy.url = driver://user:pass@localhost/dbname` to `sqlalchemy.url =`
+
+In the `alembic/env.py` file we change 
+
+```config = context.config``` 
+
+to 
+```BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+sys.path.append(BASE_DIR)
+
+config = context.config
+config.set_main_option("sqlalchemy.url", os.environ["DATABASE_URL"])
+```
 
