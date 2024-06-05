@@ -56,5 +56,40 @@ Now let's see what we installed:
 - `psycopg2-binary` - Psycopg is the most popular PostgreSQL database adapter for the Python programming language.
 - `uvicorn` - Uvicorn is an ASGI web server implementation for Python.
 
+## Third step - Start coding ...
+
+We will start by creating `main.py` file inside the `bff-workshop` folder (the nested one).
+and add the following content to it:
+
+```python
+import uvicorn
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
+def start():
+    uvicorn.run("bff_workshop.main:app", host="0.0.0.0", port=9090, reload=True, reload_dirs=["bff_workshop/"],
+                reload_delay=1)
+```
+
+Now we need to add start script to our project let's add this at the end of our `pyproject.toml` file:
+
+```toml
+[tool.poetry.scripts]
+start = "bff_workshop.main:start"
+```
+
+### We are now ready to run our app :claps:
+
+run `poetry install` and then `poetry run start` and check that everything is running by going to the
+url `http://0.0.0.0:9090/health` you spouse to see:
+> {"status":"ok"}
+
 
 
