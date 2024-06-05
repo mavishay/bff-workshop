@@ -30,7 +30,7 @@ The content should be something like that:
 bff-workshop
 ├── pyproject.toml
 ├── README.md
-├── poetry_demo
+├── bff-workshop
 │   └── __init__.py
 └── tests
     └── __init__.py
