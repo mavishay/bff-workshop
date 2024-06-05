@@ -36,3 +36,25 @@ bff-workshop
     └── __init__.py
 ```
 
+## Second step - Creating virtual env
+
+In order to create virtual env run `python3 -m venv .venv` after creating your virtual environment you need to activate it by running 
+`source .venv/bin/activate` **Try it now!**.
+
+> Don't forget to add `.env` directory to `.gitignore` file!!
+
+### Now we are ready to install some packages :-)
+
+Let's install our packages by running `poetry add fastapi fastapi-sqlalchemy pydantic alembic psycopg2-binary uvicorn`
+
+Now let's see what we installed:
+
+- `fastapi` - FastAPI is a modern, fast (high-performance), web framework for building APIs with Python based on standard Python type hints.
+- `fastapi-sqlalchemy` - FastAPI-SQLAlchemy provides a simple integration between FastAPI and SQLAlchemy in your application. It gives access to useful helpers to facilitate the completion of common tasks.
+- `pydantic` - Pydantic is the most widely used data validation library for Python.
+- `alembic` - Alembic is a database migrations tool written by the author of SQLAlchemy.
+- `psycopg2-binary` - Psycopg is the most popular PostgreSQL database adapter for the Python programming language.
+- `uvicorn` - Uvicorn is an ASGI web server implementation for Python.
+
+
+
